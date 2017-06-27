@@ -11,15 +11,14 @@ You can integrate media tools in Xamarin Form application using following code:
  
 ```xaml
  xmlns:xamarians="clr-namespace:Xamarians.Maps;assembly=Xamarians.Maps"
-```
  <xamarians:ExtendedMap x:Name="shape" Draw="True" />
+``` 
  
 ```c#
 using Xamarians.Maps;
 ```
 
-```write this code in page constructor
-```
+```c#
 ...
             shape.CreateCircle(500, 37.79752, -122.40183);
             ObservableCollection<Position> RouteCoordinates = new ObservableCollection<Position>();
@@ -31,6 +30,7 @@ using Xamarians.Maps;
             shape.CreatePolygon(RouteCoordinates);
             shape.SetMarkerIcon("hotspot.png", "");
             shape.PinClicked += Shape_PinClicked;
+```	    
 		
 Android - in MainActivity file write below code -
 ```c#
