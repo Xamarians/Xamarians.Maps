@@ -8,11 +8,15 @@ First install package from nuget using following command -
 You can integrate media tools in Xamarin Form application using following code:
 
  Shared Code -
- 
+
+Include namespace
 ```xaml
  xmlns:xamarians="clr-namespace:Xamarians.Maps;assembly=Xamarians.Maps"
- <xamarians:ExtendedMap x:Name="shape" Draw="True" />
 ``` 
+Add control in view
+```xaml
+<xamarians:ExtendedMap x:Name="shape" Draw="True" />
+```
  
 ```c#
 using Xamarians.Maps;
