@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="19" />
+	<application android:label="Sample">
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD5gI6RKUjJ-20MuGBpt8exJM5PfJEtQyA" />
+	</application>
+</manifest>

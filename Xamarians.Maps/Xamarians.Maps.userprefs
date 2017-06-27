@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{AB67E340-2476-4C35-9FAF-7C1D9764808B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarians.Maps.iOS/ExtendedMapRenderer.cs">
+    <Files>
+      <File FileName="Sample/Sample/TestCircle.xaml.cs" Line="21" Column="15" />
+      <File FileName="Sample/Sample/TestCircle.xaml" Line="6" Column="27" />
+      <File FileName="Xamarians.Maps/ExtendedMap.cs" Line="48" Column="27" />
+      <File FileName="Xamarians.Maps.iOS/ExtendedMapRenderer.cs" Line="143" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Xamarians.Maps.Droid PreferredExecutionTarget="Android.Android_Accelerated_x86" />
+  <MonoDevelop.Ide.ItemProperties.Sample.Sample.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.3f7d5c1b270e5c35b26219592fbb4059eadfbc01" />
+  <MultiItemStartupConfigurations />
+</Properties>
