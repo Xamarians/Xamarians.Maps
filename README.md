@@ -18,10 +18,7 @@ Add control in view
 <xamarians:ExtendedMap x:Name="shape" Draw="True" />
 ```
  
-```c#
-using Xamarians.Maps;
-```
-
+Add this code in page constructor
 ```c#
 ...
             shape.CreateCircle(500, 37.79752, -122.40183);
