@@ -35,8 +35,6 @@ using Xamarians.Maps;
             shape.PinClicked += Shape_PinClicked;
 		
 ```
-
-```
 Android - in MainActivity file write below code -
 ```c#
   Xamarians.Maps.Droid.ExtendedMapRenderer.Init();
