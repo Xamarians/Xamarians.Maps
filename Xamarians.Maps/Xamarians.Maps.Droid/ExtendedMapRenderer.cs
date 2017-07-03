@@ -35,7 +35,7 @@ namespace Xamarians.Maps.Droid
         protected override void OnMapReady(GoogleMap googleMap)
         {
             map = googleMap;
-            element.SetNativeContext(this);
+            //element.SetNativeContext(this);
             map.MarkerClick += Map_MarkerClick;
             CreatePolygon(element.RouteCoordinates);
             foreach (var circle in element.Circles)

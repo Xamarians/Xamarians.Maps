@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Xamarians.Maps.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Xamarians.Maps.iOS</AssemblyName>
+    <AssemblyName>Xamarians.MapPlus.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

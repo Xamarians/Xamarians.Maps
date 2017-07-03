@@ -18,7 +18,7 @@ namespace Sample
 		{
                     
 			InitializeComponent ();
-            //shape.CreateCircle(500, 37.79752, -122.40183);
+            shape.CreateCircle(500, 37.79752, -122.40183);
             ObservableCollection<Position> RouteCoordinates = new ObservableCollection<Position>();
             RouteCoordinates.Add(new Position(37.785559, -122.396728));
             RouteCoordinates.Add(new Position(37.780624, -122.390541));

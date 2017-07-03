@@ -26,7 +26,8 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision></CodesignProvision>
+    <CodesignProvision>
+    </CodesignProvision>
     <CodesignKey>iPhone Distribution: R Maclean (SYLT36L949)</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -125,6 +126,12 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="Xamarians.MapPlus">
+      <HintPath>..\..\Xamarians.Maps.iOS\bin\Debug\Xamarians.MapPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarians.MapPlus.iOS">
+      <HintPath>..\..\Xamarians.Maps.iOS\bin\Debug\Xamarians.MapPlus.iOS.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.5.239-pre3\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>
@@ -150,18 +157,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.iOS" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Xamarians.Maps.iOS\Xamarians.Maps.iOS.csproj">
-      <Project>{f72778e8-8a74-4bd6-ae5a-24ba52868fcf}</Project>
-      <Name>Xamarians.Maps.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Xamarians.Maps\Xamarians.Maps.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Xamarians.Maps</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Sample\Sample.projitems" Label="Shared" Condition="Exists('..\Sample\Sample.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

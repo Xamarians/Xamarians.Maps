@@ -11,6 +11,8 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms.Maps;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using CoreGraphics;
 
 [assembly: ExportRenderer(typeof(ExtendedMap), typeof(ExtendedMapRenderer))]
 namespace Xamarians.Maps.iOS
@@ -32,57 +34,61 @@ namespace Xamarians.Maps.iOS
 
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<View> e)
-        {
-            base.OnElementChanged(e);
-            if (isLoaded)
-            {
-                nativeMap.RemoveOverlays(nativeMap.Overlays);
-            }
+		protected override void OnElementChanged(ElementChangedEventArgs<View> e)
+		{
+			base.OnElementChanged(e);
+			if (isLoaded)
+			{
+				nativeMap.RemoveOverlays(nativeMap.Overlays);
+			}
 
-            if (e.NewElement == null)
-                return;
-            if (e.OldElement != null)
-            {
+			if (e.NewElement == null)
+				return;
+			if (e.OldElement != null)
+			{
 
-                nativeMap = Control as MKMapView;
+				nativeMap = Control as MKMapView;
 
-            }
-            element = Element as ExtendedMap;
-            mapDelegate = new MapDelegate();
-            nativeMap = Control as MKMapView;
+			}
+			element = Element as ExtendedMap;
+			mapDelegate = new MapDelegate();
+			nativeMap = Control as MKMapView;
 			nativeMap.Delegate = null;
-            nativeMap.Delegate = mapDelegate;
+			nativeMap.Delegate = mapDelegate;
 
-            var formsMap = (ExtendedMap)e.NewElement;
+			var formsMap = (ExtendedMap)e.NewElement;
+			CLLocationCoordinate2D[] coords = new CLLocationCoordinate2D[element.RouteCoordinates.Count];
 
+			int index = 0;
+			int idCounter = 1;
+			string icon = "";
+			icon = element.ImageSource;
 			foreach (var circle in element.Circles)
-            {
-                var circleOverlay = MKCircle.Circle(new CLLocationCoordinate2D(circle.Position.Latitude, circle.Position.Longitude), circle.Radius);
-                nativeMap.AddOverlay(circleOverlay);
-            }
-            CLLocationCoordinate2D[] coords = new CLLocationCoordinate2D[element.RouteCoordinates.Count];
+			{
+				var annot = new CustomAnnotation(new CLLocationCoordinate2D(circle.Position.Latitude, circle.Position.Longitude), element.CustomPins.FirstOrDefault().Label, "", false, icon);
+				annot.Id = idCounter++;
+				nativeMap.AddAnnotation(annot);
+				//pinCollection.Add(annot.Id, item);
+				annotations.Add(annot);
+				var circleOverlay = MKCircle.Circle(new CLLocationCoordinate2D(circle.Position.Latitude, circle.Position.Longitude), circle.Radius);
+				nativeMap.AddOverlay(circleOverlay);
+			}
 
-            int index = 0;
-            int idCounter = 1;
-            string icon = "";
-            icon = element.ImageSource;
-            foreach (var position in element.RouteCoordinates)
-            {
-				var annot = new CustomAnnotation(new CLLocationCoordinate2D(position.Latitude, position.Longitude),element.CustomPins.FirstOrDefault().Label,"", false, icon);
-                annot.Id = idCounter++;
-                nativeMap.AddAnnotation(annot);
-                //pinCollection.Add(annot.Id, item);
-                annotations.Add(annot);
-                coords[index] = new CLLocationCoordinate2D(position.Latitude, position.Longitude);
-                index++;
-            }
+			foreach (var position in element.RouteCoordinates)
+			{
+				var annot = new CustomAnnotation(new CLLocationCoordinate2D(position.Latitude, position.Longitude), element.CustomPins.FirstOrDefault().Label, "", false, icon);
+				annot.Id = idCounter++;
+				nativeMap.AddAnnotation(annot);
+				//pinCollection.Add(annot.Id, item);
+				annotations.Add(annot);
+				coords[index] = new CLLocationCoordinate2D(position.Latitude, position.Longitude);
+				index++;
+			}
+			var routeOverlay = MKPolyline.FromCoordinates(coords);
+			nativeMap.AddOverlay(routeOverlay);
+		}
 
-            var routeOverlay = MKPolyline.FromCoordinates(coords);
-            nativeMap.AddOverlay(routeOverlay);
-        }
-
-        public class MapDelegate : MKMapViewDelegate
+		public class MapDelegate : MKMapViewDelegate
         {
             bool _regionChanged = false;
             public event EventHandler RegionChangedEvent;
@@ -92,23 +98,42 @@ namespace Xamarians.Maps.iOS
             public override MKAnnotationView GetViewForAnnotation(MKMapView mapView, IMKAnnotation annotation)
             {
                 MKAnnotationView annotationView = null;
+				MKPinAnnotationView annotationPinView = null;
                 if (annotation is MKUserLocation)
                     return null;
                 var cAnnotation = annotation as CustomAnnotation;
-                if (annotation is CustomAnnotation)
-                {
+				if (annotation is CustomAnnotation)
+				{
 
-                    // show conference annotation
+					// show conference annotation
 
-                    annotationView = mapView.DequeueReusableAnnotation(annotationId);
-                    if (annotationView == null)
-                        annotationView = new MKAnnotationView(annotation, annotationId);
-					
-                    annotationView.CanShowCallout = true;
+					annotationView = mapView.DequeueReusableAnnotation(annotationId);
+					if (annotationView == null)
+					{
+						annotationView = new MKAnnotationView(annotation, annotationId);
+					}
+					if (annotationPinView == null)
+					{
+						annotationPinView = new MKPinAnnotationView(annotation, annotationId);
+					}
 
+					annotationView.CanShowCallout = true;
 
-                    UIImage image = UIImage.FromBundle(((CustomAnnotation)annotation).Icon);
-                    annotationView.Image = image;
+				
+					UIImage image = (annotationPinView as MKPinAnnotationView).Image;
+
+					if (!string.IsNullOrWhiteSpace(((CustomAnnotation)annotation).Icon))
+					{
+						 image = UIImage.FromBundle(((CustomAnnotation)annotation).Icon);
+						annotationView.Image = image;
+				     	annotationView.CenterOffset = new CGPoint(0, -image.Size.Height / 2);
+						
+					}
+					else
+					{
+						annotationView.Image = image;
+					    annotationView.CenterOffset = new CGPoint(9, -image.Size.Height/3);
+					}
                     var detailButton = UIButton.FromType(UIButtonType.InfoLight);
                     //// detailButton.SetImage(UIImage.FromFile("ic_lesson_hotspot_start.png"), UIControlState.Normal);
                     detailButton.TouchUpInside += (s, e) =>
@@ -137,7 +162,7 @@ namespace Xamarians.Maps.iOS
 					{
 
 						polylineRenderer = new MKPolylineRenderer(overlay as MKPolyline);
-						polylineRenderer.FillColor = UIColor.Blue;
+						//polylineRenderer.FillColor = UIColor.Blue;
 						polylineRenderer.StrokeColor = UIColor.Red;
 						polylineRenderer.LineWidth = 5;
 						isLoaded = true;
@@ -157,7 +182,7 @@ namespace Xamarians.Maps.iOS
 					}
 					return circleRenderer;
 				}
-				return null;;
+				return base.OverlayRenderer(mapView, overlayWrapper);
 			}
         }
 

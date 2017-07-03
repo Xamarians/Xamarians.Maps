@@ -34,7 +34,7 @@ namespace Xamarians.Maps
         #region Methods
 
 
-        public void CreateCircle(int radius, double XCoordinate, double YCoordinate)
+		public void CreateCircle(int radius, double XCoordinate, double YCoordinate, string label = "pin", string address= "1")
         {
             Circles.Add(new Circle
             {
@@ -46,8 +46,8 @@ namespace Xamarians.Maps
             {
                 Type = PinType.Place,
                 Position = new Position(XCoordinate, YCoordinate),
-                Label = "Pin",
-                Address = "1"
+                Label = label,
+				Address = address
             };
 
             var position = new Position(XCoordinate, YCoordinate);
@@ -57,7 +57,7 @@ namespace Xamarians.Maps
             MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMiles(1.0)));
             //_map?.Circle();
         }
-        public void CreatePolygon(ObservableCollection<Position> routeCoordinates)
+        public void CreatePolygon(ObservableCollection<Position> routeCoordinates, string label = "pin", string address= "1")
         {
             RouteCoordinates = routeCoordinates;
             foreach (var coordinate in RouteCoordinates)
@@ -70,12 +70,13 @@ namespace Xamarians.Maps
                 CustomPins.Add(new Pin
                 {
                     Position = coordinate,
-                    Label = "pin"
+                    Label = label,
+					Address = address
                 });
 
             }
 
-            MoveToRegion(MapSpan.FromCenterAndRadius(new Position(37.79752, -122.40183), Distance.FromMiles(1.0)));
+			MoveToRegion(MapSpan.FromCenterAndRadius(new Position(RouteCoordinates[0].Latitude, RouteCoordinates[0].Longitude), Distance.FromMiles(1.0)));
           
         }
         public void SetMarkerIcon(string resource, string packageName)

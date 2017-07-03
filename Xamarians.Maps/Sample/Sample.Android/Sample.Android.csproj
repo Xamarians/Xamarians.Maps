@@ -67,6 +67,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarians.MapPlus">
+      <HintPath>..\..\Xamarians.Maps.Droid\bin\Debug\Xamarians.MapPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarians.MapPlus.Droid">
+      <HintPath>..\..\Xamarians.Maps.Droid\bin\Debug\Xamarians.MapPlus.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Android.Support.Animated.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.23.3.0\lib\MonoAndroid403\Xamarin.Android.Support.Animated.Vector.Drawable.dll</HintPath>
       <Private>True</Private>
@@ -156,16 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Xamarians.Maps.Droid\Xamarians.Maps.Droid.csproj">
-      <Project>{8a883374-9a85-45ad-a7ff-65db925f875a}</Project>
-      <Name>Xamarians.Maps.Droid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Xamarians.Maps\Xamarians.Maps.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Xamarians.Maps</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\hotspot.png" />
