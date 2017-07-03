@@ -50,4 +50,5 @@ Write the Api key in Manifest file in Application Tag.
 ```
 <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD5gI6RKUjJ-20MuGBpt8exJM5PfJEtQyA" />
 ```
+For any issue log [here](https://github.com/Xamarians/Xamarians.Maps/issues)
 
